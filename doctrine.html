@@ -44,7 +44,8 @@
             color: rgb(169, 217, 153);
         }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- Corrected CDN link for marked.js -->
+    <script src="https://cdn.jsdelivr.net/npm/marked@4.0.12/lib/marked.min.js"></script>
     <script>
         function checkPassword() {
             const input = document.getElementById('passwordInput').value.toUpperCase();
@@ -53,12 +54,12 @@
 
             if (input === "KIFFLOM") {
                 // Fetch the markdown file
-                fetch('doctrine.md')
+                fetch('doctrine.md') // Ensure this is the correct path
                     .then(response => {
-                        // Log response status to console for debugging
+                        // Log the response status to the console for debugging
                         console.log('Response Status:', response.status);
                         if (!response.ok) {
-                            throw new Error("Failed to fetch markdown file. Status: " + response.status);
+                            throw new Error(`Failed to fetch markdown file. HTTP Status: ${response.status}`);
                         }
                         return response.text();
                     })
@@ -66,16 +67,20 @@
                         // Log the raw markdown content to console
                         console.log("Markdown content loaded:", markdown);
 
-                        // Convert the markdown content into HTML
-                        content.innerHTML = marked(markdown);
+                        // Convert the markdown content into HTML using marked.parse()
+                        const htmlContent = marked.parse(markdown);  // Updated function call
+                        console.log("Converted HTML content:", htmlContent); // Log the HTML output
+
+                        // Insert the converted HTML into the content div
+                        content.innerHTML = htmlContent;
 
                         // Hide the password prompt and show the content
                         document.getElementById('passwordPrompt').style.display = 'none';
                         content.style.display = 'block';
                     })
                     .catch(err => {
-                        // Log error to the console
-                        console.error('Error:', err);
+                        // Log error to the console for detailed debugging
+                        console.error('Error during fetch or markdown conversion:', err);
                         alert('An error occurred while loading the doctrine content. Please check the console for details.');
                     });
             } else {
