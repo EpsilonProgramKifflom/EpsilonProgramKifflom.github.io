@@ -44,6 +44,13 @@
             height: 80vh; /* Make the iframe height relative to the viewport height */
             border: none;
         }
+        video {
+            display: block;
+            margin: 0 auto;
+            width: 80%; /* Adjust width as needed */
+            max-height: 400px; /* Adjust max height as needed */
+            background-color: #000; /* Ensure contrast for the video player */
+        }
         footer {
             margin-top: 30px;
             padding: 10px 0;
@@ -64,6 +71,13 @@
     </header>
 
     <h1>Join The Epsilon Program</h1>
+
+    <!-- Video Element -->
+    <video id="epsilonVideo" muted>
+        <source src="EpsilonVideo.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
     <div class="content">
         <p>We regret to inform you that applications to join the program are closed. Please catch us during one of our seminars that will be advertised on Bleeter for information on how to join.</p>
     </div>
@@ -71,5 +85,18 @@
     <footer>
         <p>&copy; 2024 The Epsilon Program | All Rights Reserved</p>
     </footer>
+
+    <script>
+        // Select the video element
+        const video = document.getElementById('epsilonVideo');
+        
+        // Set initial volume to 65%
+        video.volume = 0.65;
+
+        // Delay autoplay by 4 seconds
+        setTimeout(() => {
+            video.play();
+        }, 4000);
+    </script>
 </body>
 </html>
